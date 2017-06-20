@@ -7,4 +7,5 @@
   :serial t
   :depends-on (:live-remote :cepl.sdl2 :nineveh :skitter)
   :components ((:file "package")
+               (:file "controls")
                (:file "remote-play")))
