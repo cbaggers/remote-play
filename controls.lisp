@@ -10,11 +10,27 @@
 (defvar *controls* (make-array 1 :element-type '(or remote-control null)
                                :adjustable t :fill-pointer 0))
 
-(defun remote (&optional (n 0))
+(defun %remote (&optional (n 0))
   (when (>= n (length *controls*))
-    (adjust-array *controls* (1+ n) :fill-pointer (1+ n) :initial-element nil)
+    (adjust-array *controls* (1+ n) :fill-pointer (1+ n) :initial-element nil))
+  (unless (aref *controls* n)
     (setf (aref *controls* n) (make-remote-control)))
   (aref *controls* n))
+
+(defun remote (&optional (n 0))
+  (remote-control-val (%remote n)))
+
+(defun remote-x (&optional (n 0))
+  (x (remote n)))
+
+(defun remote-y (&optional (n 0))
+  (y (remote n)))
+
+(defun remote-z (&optional (n 0))
+  (z (remote n)))
+
+(defun remote-w (&optional (n 0))
+  (w (remote n)))
 
 (defun init-remote-control-server ()
   (unless *control-server*
@@ -27,5 +43,5 @@
      (when (listp msg)
        (destructuring-bind (source-id group-id data) msg
          (declare (ignore group-id))
-         (let ((remote (remote source-id)))
+         (let ((remote (%remote source-id)))
            (set-remote-control-val remote (get-internal-real-time) data))))))
