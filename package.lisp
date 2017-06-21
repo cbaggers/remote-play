@@ -6,4 +6,5 @@
            :remote-control-val))
 
 (uiop:define-package #:remote-play
-    (:use #:cl #:cepl #:nineveh #:livesupport #:remote-play.controls :rtg-math))
+    (:use #:cl #:cepl #:nineveh #:livesupport #:remote-play.controls :rtg-math
+          :vari))
